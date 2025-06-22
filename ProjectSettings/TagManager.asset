@@ -1,0 +1,74 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Sulfur
+  - Iron
+  - Coal
+  - Copper
+  - Uranium
+  - Fluorite
+  - Jasper
+  - Moonstone
+  - Onyx
+  - Quarts
+  - Ground
+  - Heal
+  - KillRock
+  - Rock
+  - CaveTrigger
+  - Enemy
+  - Boss
+  - Door
+  - Fog
+  - Ice
+  - IceCube
+  - Wall
+  - BottomGround
+  - Shop
+  - CaveExit
+  - Artifact1
+  - Artifact2
+  - Sludge
+  - Kill
+  - Boss1
+  - SludgeBomb
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - Player
+  - Water
+  - UI
+  - Slug
+  - Spit
+  - CamSnap
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0

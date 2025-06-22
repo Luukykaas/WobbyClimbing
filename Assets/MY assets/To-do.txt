@@ -1,0 +1,81 @@
+TO-DO:
+
+
+FEATURES:
+
+1. xShop hitbox with button 
+2. More levels (IDEAS)
+3. xShop menu*
+4. Loading screen for biome transitions and when gamemode chosen
+
+
+BUG'S:
+
+1. xRock fall straight on head = hp+ not hp-
+2. xWall hitbox
+3. xFixed rotation when climbing
+4. Animation fix
+5. xSoft lock wal edge
+6. xGame mode not working 
+7. Oof sound effect not working when touch ground
+8. Sound effect	AAA repeats while active
+
+TECHNICAL DEBT:
+
+1. Git-hup repo
+2. Frame rate detect for gob and rock
+3. Clean up code with functions
+
+DEPLOYMENT
+
+1. Windows .exe for more computers
+2. Demo for friends and testers to get feedback and find bug's (:DEADLINE: before summer vacation 2025|DEMO TODO)
+
+
+
+*: 
+xSell panel: Sell ores and artifacts for money
+Buy panel: Price for buying and faded when not affordable and indicator when bouht
+Note: Pants, Pickaxe and Sword do nothing
+
+
+IDEAS:
+
+Missions: Mercants in all biomes, with missions. Reward = next biome**
+Biomes: After evrery biome a dungeon, and every 3 biomes a Boss***
+	Biome Ideas: Ice (ACTIVE), Swamp, Vulcano, Futuristic City, Desert Ruïns, Jungle, Canyon, Space, Book, ... (More biomes need to be thout of)
+	Dungeon Ideas: xCave, Ice Cave, Inside a tree, Inside the vulcano (Lava rising), Office, Piramid, Waterfall (Mercant Quest?), Ambush, Space ship, ...
+	Boss Ideas: Slugcluck the Big Slug of the Swamp (Swamp), Ahciok the Son of the Dark Sun (Desert Ruïns), Xencos-13 the Emperor of the Galactic Sanctum (Space), ...
+
+
+**:
+Most mercants will grant next biome, some will grant money or other valuables (First biome will not have a mercant)
+
+***:
+Bosses will have an upwards auto-scrolling level, where you need to hit weak-points with radomly spawning power-ups, every hit a new fase and after 3 hits next biome (No mercant)
+
+
+
+
+
+
+
+
+
+
+
+
+DEMO-TO-DO:
+
+
+GAME:
+-Make a copy for the demo
+-Make a win screen
+-Make biome 1,2 and 3 finised + Boss1
+-Make a bug reporter
+-MAKE A GITHUB!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+RL:
+-Give out USB's
+-Look at bugs via bug reporter and add them to "Bugs" in TO-DO
