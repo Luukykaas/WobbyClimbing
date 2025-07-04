@@ -72,4 +72,9 @@ public class UIManager : MonoBehaviour
         Shop.SetActive(true);
         Shoppanel.SetActive(false);
     }
+    
+    public void OpenURL(string url)
+    {
+        Application.OpenURL(url);
+    }
 }

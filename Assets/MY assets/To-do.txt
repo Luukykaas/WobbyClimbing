@@ -22,14 +22,14 @@ BUG'S:
 
 TECHNICAL DEBT:
 
-1. Git-hup repo
+1. xGit-hup repo
 2. Frame rate detect for gob and rock
 3. Clean up code with functions
 
 DEPLOYMENT
 
 1. Windows .exe for more computers
-2. Demo for friends and testers to get feedback and find bug's (:DEADLINE: before summer vacation 2025|DEMO TODO)
+2. Demo for friends and testers to get feedback and find bug's (:DEADLINE: at least at the end of summer vacation 2025|DEMO TODO)
 
 
 
@@ -52,7 +52,7 @@ Biomes: After evrery biome a dungeon, and every 3 biomes a Boss***
 Most mercants will grant next biome, some will grant money or other valuables (First biome will not have a mercant)
 
 ***:
-Bosses will have an upwards auto-scrolling level, where you need to hit weak-points with radomly spawning power-ups, every hit a new fase and after 3 hits next biome (No mercant)
+Bosses will have an upwards auto-scrolling level, where you need to hit weak-points with randomly spawning power-ups, every hit a new fase and after 3 hits next biome (No mercant)
 
 
 
@@ -70,12 +70,12 @@ DEMO-TO-DO:
 
 GAME:
 -Make a copy for the demo
--Make a win screen
+-xMake a win screen
 -Make biome 1,2 and 3 finised + Boss1
 -Make a bug reporter
--MAKE A GITHUB!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+-xMAKE A GITHUB!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 
-RL:
--Give out USB's
+RL: (GAME has to be finised first) delete this text if game is done
+-Give out USB's or weTransfer
 -Look at bugs via bug reporter and add them to "Bugs" in TO-DO
