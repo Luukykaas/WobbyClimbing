@@ -24,7 +24,7 @@ public class BossGobAI : MonoBehaviour
         transform.Translate(Vector3.forward * Time.deltaTime * Bossspeed * 1);
         if (BossgobHP < 0)
         {
-            gobSpawn.killedGobs++;
+            gobSpawn.killedBoss = true;
             Movement.key = true;
             Destroy(gameObject);
         }

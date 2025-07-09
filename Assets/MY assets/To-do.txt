@@ -72,7 +72,7 @@ GAME:
 -Make a copy for the demo
 -xMake a win screen
 -Make biome 1,2 and 3 finised + Boss1
--Make a bug reporter
+-xMake a bug reporter
 -xMAKE A GITHUB!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 

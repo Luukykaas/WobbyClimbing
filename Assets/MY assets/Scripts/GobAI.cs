@@ -20,14 +20,17 @@ public class GobAI : MonoBehaviour
     }
     private void Update()
     {
-        transform.LookAt(Player.transform.position);
-        transform.Translate(Vector3.forward * Time.deltaTime * speed * 1);
-        if (gobHP < 0)
+        if(gameObject.name != "Gob1")
         {
-            gobSpawn.killedGobs++;
-            Destroy(gameObject);
+            transform.LookAt(Player.transform.position);
+            transform.Translate(Vector3.forward * Time.deltaTime * speed * 1);
+            if (gobHP < 0)
+            {
+                gobSpawn.killedGobs++;
+                Destroy(gameObject);
+            }
+            if (Movement.level != Level.CAVE || gobSpawn.killedBoss) Destroy(gameObject);
         }
-        if (Movement.level == Level.BIOME2) Destroy(gameObject);
     }
     private void OnTriggerStay(Collider other)
     {

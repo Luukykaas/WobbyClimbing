@@ -9,6 +9,7 @@ using UnityEngine.UIElements;
 using Unity.VisualScripting;
 using System.Security.Cryptography.X509Certificates;
 using UnityEngine.Animations;
+using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 public enum Level
 {
@@ -17,6 +18,7 @@ public enum Level
 
 public class MOvment : MonoBehaviour
 {
+    public static MOvment instanceMov;
     public Level level = Level.CAVE;
     public float speed = 7.0f;
     public Vector3 start; 
@@ -58,6 +60,12 @@ public class MOvment : MonoBehaviour
     Animator anim;
     AudioSource AudioScript;
     Dialoge dialoge;
+
+    private void Awake()
+    {
+        if (MOvment.instanceMov == null) instanceMov = this;
+        else Destroy(gameObject);
+    }
 
     public void AudioPlay()
     {
@@ -462,7 +470,7 @@ public class MOvment : MonoBehaviour
             {
                 AudioScript.clip = AudioSources.instance.Oof;
                 AudioScript.Play();
-                if (!OreDection.instance.boots) hpP += maxVy * 2;
+                if (!OreDection.instance.boots) hpP += maxVy;
                 else
                 {
                     if (maxVy * 2 < 70)
