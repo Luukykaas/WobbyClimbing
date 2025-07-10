@@ -35,6 +35,7 @@ TagManager:
   - Kill
   - Boss1
   - SludgeBomb
+  - Diamond
   layers:
   - Default
   - TransparentFX

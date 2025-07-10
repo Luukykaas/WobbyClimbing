@@ -20,18 +20,17 @@ public class Dialoge : MonoBehaviour
         "Hey, what are you up to?",
         "You want to go to the next biome? I have a key for the door.",
         "I will give it to you if you give me 2 diamonds.",
-        "Have you got the diamonds?",
+        "Have you got them?",
+        "I heard that you can find them on the other side of the first mountain.",
         "Thanks! Here is the key..."
     };
 
     public string[] responseTxt =
     {
-        "Bye!",
-        "OK",
         "I want to go to the next biome",
         "Can I get it?",
         "OK",
-        "Here",
+        "No, where can I find them?",
         "Bye!"
     };
 
@@ -51,12 +50,12 @@ public class Dialoge : MonoBehaviour
             }
             if (OreDection.instance.diamondPublic < 2)
             {
-                responseTxt[5] = "No";
+                responseTxt[3] = "No, where can I find them?";
                 end = merchantTxt.Length-1;
             }
             else
             {
-                responseTxt[5] = "Here";
+                responseTxt[4] = "Here";
                 end = merchantTxt.Length;
             }
             conversionStarted = true;
@@ -66,13 +65,14 @@ public class Dialoge : MonoBehaviour
         if (txtProgress < end)
         {
             DialogeText.text = merchantTxt[txtProgress];
-            ResponseText.text = responseTxt[txtProgress + 2];
+            ResponseText.text = responseTxt[txtProgress];
         }
         else
         {
             DialogePanel.SetActive(false);
             txtProgress = 0;
             conversionStarted = false;
+            firstConversation = false;
             UIManager.instance.Freeze(false);
         }
 

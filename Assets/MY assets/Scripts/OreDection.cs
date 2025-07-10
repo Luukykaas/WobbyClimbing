@@ -221,51 +221,61 @@ public class OreDection : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Sulfur"))
         {
-            sulfur += 0.02;
-            sulfurPublic = (int)Math.Round(sulfur);
-            sulfurText.text = "Sulfur: " + sulfurPublic.ToString();
             if (Input.GetKeyDown(KeyCode.M))
             {
+                sulfur += 0.02;
+                sulfurPublic = (int)Math.Round(sulfur);
+                sulfurText.text = "Sulfur: " + sulfurPublic.ToString();
                 anim.SetBool("Mining", true);
             }
         }
         if (other.gameObject.CompareTag("Iron"))
         {
-            iron += 0.03;
-            ironPublic = (int)Math.Round(iron);
-            ironText.text = "Iron: " + ironPublic.ToString();
+
             if (Input.GetKeyDown(KeyCode.M))
             {
+                iron += 0.03;
+                ironPublic = (int)Math.Round(iron);
+                ironText.text = "Iron: " + ironPublic.ToString();
                 anim.SetBool("Mining", true);
             }
         }
         if (other.gameObject.CompareTag("Copper"))
         {
-            copper += 0.02;
-            copperPublic = (int)Math.Round(copper);
-            copperText.text = "Copper: " + copperPublic.ToString();
             if (Input.GetKeyDown(KeyCode.M))
             {
+                copper += 0.02;
+                copperPublic = (int)Math.Round(copper);
+                copperText.text = "Copper: " + copperPublic.ToString();
                 anim.SetBool("Mining", true);
             }
         }
         if (other.gameObject.CompareTag("Coal"))
         {
-            coal += 0.015;
-            coalPublic = (int)Math.Round(coal);
-            coalText.text = "Coal: " + coalPublic.ToString();
             if (Input.GetKeyDown(KeyCode.M))
             {
+                coal += 0.015;
+                coalPublic = (int)Math.Round(coal);
+                coalText.text = "Coal: " + coalPublic.ToString();
                 anim.SetBool("Mining", true);
             }
         }
         if (other.gameObject.CompareTag("Fluorite"))
         {
-            fluorite += 0.01;
-            fluoritePublic = (int)Math.Round(fluorite);
-            fluoriteText.text = "Fluorite: " + fluoritePublic.ToString();
             if (Input.GetKeyDown(KeyCode.M))
             {
+                fluorite += 0.01;
+                fluoritePublic = (int)Math.Round(fluorite);
+                fluoriteText.text = "Fluorite: " + fluoritePublic.ToString();
+                anim.SetBool("Mining", true);
+            }
+        }
+        if (other.gameObject.CompareTag("Diamond"))
+        {
+            if (Input.GetKeyDown(KeyCode.M))
+            {
+                diamond += 0.005;
+                diamondPublic = (int)Math.Round(diamond);
                 anim.SetBool("Mining", true);
             }
         }

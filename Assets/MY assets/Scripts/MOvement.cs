@@ -52,6 +52,7 @@ public class MOvment : MonoBehaviour
     public int hp = 100;
     public double hpP = 100;
     public bool punching = false;
+    public int wallSide = 1;
     KillRock killRock;
     public bool key = false;
     GobAI gobAI;
@@ -140,6 +141,8 @@ public class MOvment : MonoBehaviour
             }
         }
 
+        wallSide = gameObject.transform.position.z > 10.49f ? 0 : 1;
+
         hpText.text = "HP: " + Math.Round(hpP).ToString();
         if (hpP <= 0)
         {
@@ -155,19 +158,13 @@ public class MOvment : MonoBehaviour
             else if (Time.timeScale == 0) Time.timeScale = 1;
         }
 
-        if (Input.GetKeyDown(KeyCode.V))
-        {
-
-        }
-
-        
 
         if (level != Level.CAVE)
         {
             //if (!ShopPanel.activeSelf)
             if (isTouchingWall)
             {
-                transform.localRotation = Quaternion.Euler(0, 0, 0);
+                transform.localRotation = wallSide == 1 ? Quaternion.Euler(0, 0, 0) : Quaternion.Euler(0, 180, 0);
                 Vector3 mousePos = Input.mousePosition;
                 if (Input.GetKey(KeyCode.Mouse0) && !falling)
                 {
@@ -206,6 +203,7 @@ public class MOvment : MonoBehaviour
                         isInAir = true;
                         isOnGround = false;
                         //transform.Translate(aim * launchForce);
+                        if (wallSide == 0) aim.x = -aim.x;
                         playerRb.AddForce(aim * launchForce, ForceMode.Impulse);
                         playerRb.useGravity = true;
                         anim.SetBool("Climbing", true);
@@ -382,11 +380,6 @@ public class MOvment : MonoBehaviour
             UIManager.instance.Freeze(false);
             UIManager.instance.ChangeShopActive(false);
         }
-        if (other.gameObject.name == "Snowy Mercant")
-        {
-            dialoge.Say();
-            UIManager.instance.Freeze(true);
-        }
         if (other.gameObject.CompareTag("Artifact1"))
         {
             OreDection.instance.Artifact(1);
@@ -431,6 +424,14 @@ public class MOvment : MonoBehaviour
         if (other.gameObject.CompareTag("Sludge"))
         {
             speed = 4.0f; 
+        }
+        if (other.gameObject.name == "Snowy Mercant")
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                dialoge.Say();
+                UIManager.instance.Freeze(true);
+            }
         }
     }
 
