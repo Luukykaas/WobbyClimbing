@@ -57,6 +57,7 @@ public class Dialoge : MonoBehaviour
             {
                 responseTxt[4] = "Here";
                 end = merchantTxt.Length;
+                MOvment.instanceMov.key = true;
             }
             conversionStarted = true;
         }

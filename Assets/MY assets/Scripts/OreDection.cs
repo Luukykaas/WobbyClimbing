@@ -14,16 +14,22 @@ public class OreDection : MonoBehaviour
 {
     public double money;
     public double sulfur = 0;
+    public int sulfurAlt = 0;
     public int sulfurPublic = 0;
     public double iron = 0;
+    public int ironAlt = 0;
     public int ironPublic = 0;
     public double copper = 0;
+    public int copperAlt = 0;
     public int copperPublic = 0;
     public double coal = 0;
+    public int coalAlt = 0;
     public int coalPublic = 0;
     public double fluorite = 0;
+    public int fluoriteAlt = 0;
     public int fluoritePublic = 0;
     public double diamond = 0;
+    public int diamondAlt = 0;
     public int diamondPublic = 0;
     public bool helmet = false;
     public bool chestplate = false;
@@ -38,6 +44,8 @@ public class OreDection : MonoBehaviour
     public TextMeshProUGUI coalText;
     public TextMeshProUGUI fluoriteText;
     MOvment Movement;
+    Inventory invent;
+    public GameObject Inventory;
     public GameObject Audio;
     AudioSource AudioScript;
     Animator anim;
@@ -54,16 +62,41 @@ public class OreDection : MonoBehaviour
         anim = gameObject.GetComponent<Animator>();
         Movement = gameObject.GetComponent<MOvment>();
         AudioScript = Audio.GetComponent<AudioSource>();
+        invent = Inventory.GetComponent<Inventory>();
     }
 
     private void Update()
     {
-        moneyText.text = "Money: " + money.ToString();
-        sulfurText.text = "Sulfur: " + sulfurPublic.ToString();
-        ironText.text = "Iron: " + ironPublic.ToString();
-        copperText.text = "Copper: " + copperPublic.ToString();
-        coalText.text = "Coal: " + coalPublic.ToString();
-        fluoriteText.text = "Fluorite: " + fluoritePublic.ToString();
+        if (sulfurAlt != sulfurPublic)
+        {
+            sulfurAlt = sulfurPublic;
+            invent.RecieveItem("Sulphur");
+        }
+        if (ironAlt != ironPublic)
+        {
+            invent.RecieveItem("Iron");
+            ironAlt = ironPublic;
+        }
+        if (copperAlt != copperPublic)
+        {
+            invent.RecieveItem("Copper");
+            copperAlt = copperPublic;
+        }
+        if (coalAlt != coalPublic)
+        {
+            invent.RecieveItem("Coal");
+            coalAlt = coalPublic;
+        }
+        if (fluoriteAlt != fluoritePublic)
+        {
+            invent.RecieveItem("Fluorite");
+            fluoriteAlt = fluoritePublic;
+        }
+        if (diamondAlt != diamondPublic)
+        {
+            invent.RecieveItem("Diamonds");
+            diamondAlt = diamondPublic;
+        }
     }
 
     public void Artifact(int number)
@@ -80,6 +113,12 @@ public class OreDection : MonoBehaviour
 
             default: break;
         }
+    }
+
+    public void GiveItem()
+    {
+        sulfurPublic++;
+        sulfur++;
     }
 
     public void Sell(String ore)
@@ -225,7 +264,6 @@ public class OreDection : MonoBehaviour
             {
                 sulfur += 0.02;
                 sulfurPublic = (int)Math.Round(sulfur);
-                sulfurText.text = "Sulfur: " + sulfurPublic.ToString();
                 anim.SetBool("Mining", true);
             }
         }
@@ -236,7 +274,6 @@ public class OreDection : MonoBehaviour
             {
                 iron += 0.03;
                 ironPublic = (int)Math.Round(iron);
-                ironText.text = "Iron: " + ironPublic.ToString();
                 anim.SetBool("Mining", true);
             }
         }
@@ -246,7 +283,6 @@ public class OreDection : MonoBehaviour
             {
                 copper += 0.02;
                 copperPublic = (int)Math.Round(copper);
-                copperText.text = "Copper: " + copperPublic.ToString();
                 anim.SetBool("Mining", true);
             }
         }
@@ -256,7 +292,6 @@ public class OreDection : MonoBehaviour
             {
                 coal += 0.015;
                 coalPublic = (int)Math.Round(coal);
-                coalText.text = "Coal: " + coalPublic.ToString();
                 anim.SetBool("Mining", true);
             }
         }
@@ -266,7 +301,6 @@ public class OreDection : MonoBehaviour
             {
                 fluorite += 0.01;
                 fluoritePublic = (int)Math.Round(fluorite);
-                fluoriteText.text = "Fluorite: " + fluoritePublic.ToString();
                 anim.SetBool("Mining", true);
             }
         }

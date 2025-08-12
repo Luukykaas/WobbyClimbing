@@ -36,6 +36,9 @@ TagManager:
   - Boss1
   - SludgeBomb
   - Diamond
+  - Bullet
+  - IceCaveTrigger
+  - PowerUp
   layers:
   - Default
   - TransparentFX

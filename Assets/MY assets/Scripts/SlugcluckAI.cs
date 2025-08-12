@@ -11,7 +11,7 @@ public class SlugcluckAI : MonoBehaviour
     public GameObject MouthPos;
     public MOvment Movement;
     public float speed = 3;
-    public float spitSpeed;
+    public float spitSpeed = 1;
     public bool superSpit;
     public Vector3 eggSpawn;
 

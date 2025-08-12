@@ -5,24 +5,36 @@ using UnityEngine;
 public class SlugCluckAIClimb : MonoBehaviour
 {
     public GameObject Player;
+    public GameObject Butt;
     public GameObject SludgeBomb;
+    public GameObject PowerUp1;
+    public GameObject PowerUp2;
+    public GameObject HpIncreaseParticles;
+    public GameObject WinScreen;
     public int activeRow = 1;
     public float rowMove = 0f;
+    public float BossHP = 100;
     public int r;
 
     private void Start()
     {
         StartCoroutine("MoveCollumn");
         StartCoroutine("DropSludgeBomb");
+        StartCoroutine("SpawnPowerUp");
+        StartCoroutine("HpIncrease");
     }
 
     public void Update()
     {
-        if (Player.transform.position.y > (gameObject.transform.position.y - 25)) {
-            gameObject.transform.position += Vector3.up * 0.1f;
-        }
+        transform.Translate(Vector3.forward * 0.05f);
         gameObject.transform.position += Vector3.right * rowMove;
         CheckIfReachedDestinationRow(r);
+        if(BossHP < 0)
+        {
+            UIManager.instance.ChangeUIByGO(WinScreen);
+            UIManager.instance.Freeze(true);
+            Destroy(gameObject);
+        }
     }
     
     public void SwitchCollumn()
@@ -75,15 +87,32 @@ public class SlugCluckAIClimb : MonoBehaviour
 
     IEnumerator MoveCollumn()
     {
-        yield return new WaitForSeconds(Random.Range(3, 8));
+        yield return new WaitForSeconds(Random.Range(2, 5));
         SwitchCollumn();
         StartCoroutine("MoveCollumn");
     }
 
     IEnumerator DropSludgeBomb()
     {
-        yield return new WaitForSeconds(Random.Range(0, 4));
-        Instantiate(SludgeBomb, gameObject.transform.position, gameObject.transform.rotation);
+        yield return new WaitForSeconds(Random.Range(1, 4));
+        Instantiate(SludgeBomb, Butt.transform.position, gameObject.transform.rotation);
         StartCoroutine("DropSludgeBomb");
+    }
+
+    IEnumerator SpawnPowerUp()
+    {
+        yield return new WaitForSeconds(Random.Range(5, 13));
+        int r = Random.Range(1, 2);
+        GameObject PowerUp  = r == 1 ? PowerUp1 : PowerUp2;
+        Instantiate(PowerUp, Butt.transform.position, gameObject.transform.rotation);
+        StartCoroutine("SpawnPowerUp");
+    }
+
+    IEnumerator HpIncrease()
+    {
+        yield return new WaitForSeconds(Random.Range(10, 25));
+        BossHP += 50;
+        Instantiate(HpIncreaseParticles, gameObject.transform.position, gameObject.transform.rotation);
+        StartCoroutine("HpIncrease");
     }
 }

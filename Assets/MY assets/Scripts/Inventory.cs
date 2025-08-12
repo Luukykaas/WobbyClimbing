@@ -31,6 +31,8 @@ public class Inventory : MonoBehaviour
         0
     };
 
+
+
     public void RecieveItem(string item)
     {
         int activeSlot = 0;
@@ -64,26 +66,32 @@ public class Inventory : MonoBehaviour
             case "Sulphur":
                 slots[activeSlot].GetComponent<Image>().sprite = SulphurSprite;
                 slots[activeSlot].GetComponent<ItemHolder>().item = "Sulphur";
+                slots[activeSlot].GetComponentInChildren<TMP_Text>().text = OreDection.instance.sulfurPublic.ToString();
                 break;
             case "Iron":
                 slots[activeSlot].GetComponent<Image>().sprite = IronSprite;
                 slots[activeSlot].GetComponent<ItemHolder>().item = "Iron";
+                slots[activeSlot].GetComponentInChildren<TMP_Text>().text = OreDection.instance.ironPublic.ToString();
                 break;
             case "Copper":
                 slots[activeSlot].GetComponent<Image>().sprite = CopperSprite;
                 slots[activeSlot].GetComponent<ItemHolder>().item = "Copper";
+                slots[activeSlot].GetComponentInChildren<TMP_Text>().text = OreDection.instance.copperPublic.ToString();
                 break;
             case "Coal":
                 slots[activeSlot].GetComponent<Image>().sprite = CoalSprite;
                 slots[activeSlot].GetComponent<ItemHolder>().item = "Coal";
+                slots[activeSlot].GetComponentInChildren<TMP_Text>().text = OreDection.instance.coalPublic.ToString();
                 break;
             case "Fluorite":
                 slots[activeSlot].GetComponent<Image>().sprite = FluoriteSprite;
                 slots[activeSlot].GetComponent<ItemHolder>().item = "Fluorite";
+                slots[activeSlot].GetComponentInChildren<TMP_Text>().text = OreDection.instance.fluoritePublic.ToString();
                 break;
             case "Diamonds":
                 slots[activeSlot].GetComponent<Image>().sprite = DiamondsSprite;
                 slots[activeSlot].GetComponent<ItemHolder>().item = "Diamonds";
+                slots[activeSlot].GetComponentInChildren<TMP_Text>().text = OreDection.instance.diamondPublic.ToString();
                 break;
             case "Jasper":
                 slots[activeSlot].GetComponent<Image>().sprite = JasperSprite;
@@ -94,7 +102,72 @@ public class Inventory : MonoBehaviour
             default: slots[activeSlot].GetComponent<Image>().sprite = Empty; break;
         }
 
-        if (availableSlots > 0) availableSlots--;
+        if (availableSlots > 0 && !slotFound) availableSlots--;
 
+    }
+
+    public void DeleteItem(string item, int amount)
+    {
+        bool itemExists = false;
+        int itemNumber = 0;
+
+        for (int o = 0; o < slots.Length; o++)
+        {
+            if (item == slots[o].GetComponent<ItemHolder>().item)
+            {
+                itemExists = true;
+                itemNumber = o;
+            }
+        }
+
+        if (itemExists)
+        {
+            switch(item)
+            {
+                case "Sulphur":
+                    if(amount == OreDection.instance.sulfurPublic)
+                    {
+                        slots[itemNumber].GetComponent<Image>().sprite = Empty;
+                    }
+                    break;
+                case "Iron":
+                    if (amount == OreDection.instance.ironPublic)
+                    {
+                        slots[itemNumber].GetComponent<Image>().sprite = Empty;
+                    }
+                    break;
+                case "Copper":
+                    if (amount == OreDection.instance.copperPublic)
+                    {
+                        slots[itemNumber].GetComponent<Image>().sprite = Empty;
+                    }
+                    break;
+                case "Coal":
+                    if (amount == OreDection.instance.coalPublic)
+                    {
+                        slots[itemNumber].GetComponent<Image>().sprite = Empty;
+                    }
+                    break;
+                case "Fluorite":
+                    if (amount == OreDection.instance.fluoritePublic)
+                    {
+                        slots[itemNumber].GetComponent<Image>().sprite = Empty;
+                    }
+                    break;
+                case "Diamonds":
+                    if (amount == OreDection.instance.diamondPublic)
+                    {
+                        slots[itemNumber].GetComponent<Image>().sprite = Empty;
+                    }
+                    break;
+
+                default: 
+                    break;
+            }
+        }
+        else
+        {
+
+        }
     }
 }

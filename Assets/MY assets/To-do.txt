@@ -71,11 +71,17 @@ DEMO-TO-DO:
 GAME:
 -Make a copy for the demo
 -xMake a win screen
--Make biome 1,2 and 3 finised + Boss1
+
+-Make biome 1x,2 and 3 finised + Boss1:
+	1. Ice cave
+	2. Swamp biome
+	3. Slugcluck climb
+
+
 -xMake a bug reporter
 -xMAKE A GITHUB!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 
 RL: (GAME has to be finised first) delete this text if game is done
--Give out USB's or weTransfer
+-Give out USB's (no) or weTransfer
 -Look at bugs via bug reporter and add them to "Bugs" in TO-DO

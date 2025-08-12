@@ -13,16 +13,22 @@ using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 public enum Level
 {
-    PLAYER, BIOME1, BIOME2, CAVE, BOSS1, BOSS1CLIMB
+    PLAYER, BIOME1, BIOME2, BIOME3, CAVE, ICECAVE, BOSS1, BOSS1CLIMB
+}
+
+public enum PowerUp
+{
+    NONE, SALT, BORE
 }
 
 public class MOvment : MonoBehaviour
 {
     public static MOvment instanceMov;
     public Level level = Level.CAVE;
+    public PowerUp powerup = PowerUp.NONE;
     public float speed = 7.0f;
-    public Vector3 start; 
-    public Vector3 aim; 
+    public Vector3 start;
+    public Vector3 aim;
     public float launchForce = 0.1f;
     public float jumpForce = 5.0f;
     public bool isOnGround = false;
@@ -38,13 +44,17 @@ public class MOvment : MonoBehaviour
     [SerializeField] GameObject Wall;
     [SerializeField] GameObject ShopPanel;
     [SerializeField] GameObject Menu;
+    [SerializeField] GameObject Inventory;
     [SerializeField] GameObject Cave;
+    [SerializeField] GameObject IceCave;
     [SerializeField] GameObject CaveEntrance;
+    [SerializeField] GameObject Biome3;
     [SerializeField] GameObject Biome2;
     [SerializeField] GameObject Biome1;
     [SerializeField] GameObject Boss1;
     [SerializeField] GameObject Boss1Climb;
     [SerializeField] GameObject Audio;
+    [SerializeField] GameObject PowerUpExplosion;
     public float jumpBoost = 1.0f;
     public bool disabled = false;
     public float velocityY = 0.0f;
@@ -91,8 +101,18 @@ public class MOvment : MonoBehaviour
                 anim.SetBool("Walking", false);
                 break;
 
+            case Level.BIOME3:
+                gameObject.transform.position = Biome3.transform.position;
+                gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
+                anim.SetBool("Walking", false);
+                break;
+
             case Level.CAVE:
                 gameObject.transform.position = Cave.transform.position;
+                break;
+
+            case Level.ICECAVE:
+                gameObject.transform.position = IceCave.transform.position;
                 break;
 
             case Level.BOSS1:
@@ -151,9 +171,15 @@ public class MOvment : MonoBehaviour
             Debug.Log("Death");
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape) )
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             Menu.SetActive(!Menu.activeSelf);
+            if (Time.timeScale == 1) Time.timeScale = 0;
+            else if (Time.timeScale == 0) Time.timeScale = 1;
+        }
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            Inventory.SetActive(!Inventory.activeSelf);
             if (Time.timeScale == 1) Time.timeScale = 0;
             else if (Time.timeScale == 0) Time.timeScale = 1;
         }
@@ -162,7 +188,7 @@ public class MOvment : MonoBehaviour
         if (level != Level.CAVE)
         {
             //if (!ShopPanel.activeSelf)
-            if (isTouchingWall)
+            if (isTouchingWall || level == Level.BOSS1CLIMB)
             {
                 transform.localRotation = wallSide == 1 ? Quaternion.Euler(0, 0, 0) : Quaternion.Euler(0, 180, 0);
                 Vector3 mousePos = Input.mousePosition;
@@ -235,7 +261,7 @@ public class MOvment : MonoBehaviour
             if (AudioScript.clip = AudioSources.instance.AAA) AudioScript.Stop();
             if (maxVy < -5) AudioScript.Play();
         }
-        
+
         if (velocityY < maxVy) maxVy = velocityY;
     }
     public void PlayerDied()
@@ -347,6 +373,13 @@ public class MOvment : MonoBehaviour
             hpP += (kr.velocity.y * 3);
             hpText.text = "HP: " + Math.Round(hpP).ToString();
         }
+        if (other.gameObject.CompareTag("Bullet"))
+        {
+            Destroy(other);
+            if (!OreDection.instance.chestplate) hpP -= 3;
+            else hpP -= 10;
+            hpText.text = "HP: " + Math.Round(hpP).ToString();
+        }
         if (other.gameObject.CompareTag("IceCube"))
         {
             Rigidbody kr = other.gameObject.GetComponent<Rigidbody>();
@@ -379,6 +412,35 @@ public class MOvment : MonoBehaviour
             ShopPanel.SetActive(false);
             UIManager.instance.Freeze(false);
             UIManager.instance.ChangeShopActive(false);
+        }
+        if (other.gameObject.CompareTag("PowerUp"))
+        {
+            switch(other.name)
+            {
+                case "SaltPowerUp(Clone)":
+                    powerup = PowerUp.SALT;
+                    break;
+                case "BorePowerUp(Clone)":
+                    powerup = PowerUp.BORE;
+                    break;
+            }
+            Instantiate(PowerUpExplosion, other.transform.position, other.transform.rotation);
+            Destroy(other);
+        }
+        if (other.gameObject.CompareTag("Boss1"))
+        {
+            switch(powerup)
+            {
+                case PowerUp.NONE:
+                    transform.Translate(Vector3.down * 5);
+                    hpP -= 10;
+                    hpText.text = "HP: " + Math.Round(hpP).ToString();
+                    break;
+                case PowerUp.SALT:
+                    transform.Translate(Vector3.down * 5);
+                    other.GetComponent<SlugCluckAIClimb>().BossHP -= 50;
+                    break;
+            }
         }
         if (other.gameObject.CompareTag("Artifact1"))
         {
@@ -421,99 +483,111 @@ public class MOvment : MonoBehaviour
                 anim.SetBool("Walking", false);
             }
         }
-        if (other.gameObject.CompareTag("Sludge"))
+        if (other.gameObject.CompareTag("IceCaveTrigger"))
         {
-            speed = 4.0f; 
-        }
-        if (other.gameObject.name == "Snowy Mercant")
-        {
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.E) && key)
             {
-                dialoge.Say();
-                UIManager.instance.Freeze(true);
+                Debug.Log("YOU HAVE ENTERED THE ICECAVE");
+                SetLevel(Level.ICECAVE);
             }
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.CompareTag("Wall"))
-        {
-            isTouchingWall = false;
-        }
-        if (other.gameObject.CompareTag("BottomGround"))
-        {
-            isOnBGround = false;
-        }
-        if (other.gameObject.CompareTag("Sludge"))
-        {
-            speed = 7.0f;
-        }
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("BottomGround"))
-        {
-            isOnGround = true;
-            isInAir = false;
-            /*
-            hp = (int)Math.Round(hpP);
-            hpP = hp;
-            if (hp < 0)
+            if (other.gameObject.CompareTag("Sludge"))
             {
-                hp = 0;
-                anim.SetBool("Death", true);
+                speed = 4.0f;
             }
-            */
-
-            if (maxVy < -10)
+            if (other.gameObject.name == "Snowy Mercant")
             {
-                AudioScript.clip = AudioSources.instance.Oof;
-                AudioScript.Play();
-                if (!OreDection.instance.boots) hpP += maxVy;
-                else
+                if (Input.GetKeyDown(KeyCode.E))
                 {
-                    if (maxVy * 2 < 70)
-                    {
-                        hpP += maxVy;
-                    }
-                    else hpP += maxVy * 2;
+                    dialoge.Say();
+                    UIManager.instance.Freeze(true);
                 }
             }
-            if (hpP <= 0)
+            if (other.gameObject.CompareTag("Wall"))
             {
-                hpP = 0;
-                hp = 0;
-                anim.SetBool("Death", true);
-                AudioScript.clip = AudioSources.instance.Death;
-                AudioScript.Play();
-                PlayerDied();
+                isTouchingWall = true;
             }
-            maxVy = 0;
-
-
-            anim.SetBool("Climbing", false);
-            anim.SetBool("Mining", false);
-            anim.SetBool("Falling", false);
-            hpText.text = "HP: " + Math.Round(hpP).ToString();
         }
     }
-    private void OnCollisionStay(Collision other)
-    {
-        if (other.gameObject.CompareTag("Enemy"))
+
+        private void OnTriggerExit(Collider other)
         {
-            if (!OreDection.instance.chestplate) hpP -= 0.05;
-            else hpP -= 0.025;
-            hp = (int)hpP;
-            hpText.text = "HP: " + hp.ToString();
+            if (other.gameObject.CompareTag("Wall"))
+            {
+                isTouchingWall = false;
+            }
+            if (other.gameObject.CompareTag("BottomGround"))
+            {
+                isOnBGround = false;
+            }
+            if (other.gameObject.CompareTag("Sludge"))
+            {
+                speed = 7.0f;
+            }
         }
-        if (other.gameObject.CompareTag("Boss"))
+
+        private void OnCollisionEnter(Collision collision)
         {
-            if (!OreDection.instance.chestplate) hpP -= 0.1;
-            else hpP -= 0.05;
-            hp = (int)hpP;
-            hpText.text = "HP: " + hp.ToString();
+            if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("BottomGround"))
+            {
+                isOnGround = true;
+                isInAir = false;
+                /*
+                hp = (int)Math.Round(hpP);
+                hpP = hp;
+                if (hp < 0)
+                {
+                    hp = 0;
+                    anim.SetBool("Death", true);
+                }
+                */
+
+                if (maxVy < -10)
+                {
+                    AudioScript.clip = AudioSources.instance.Oof;
+                    AudioScript.Play();
+                    if (!OreDection.instance.boots) hpP += maxVy;
+                    else
+                    {
+                        if (maxVy * 2 < 70)
+                        {
+                            hpP += maxVy;
+                        }
+                        else hpP += maxVy * 2;
+                    }
+                }
+                if (hpP <= 0)
+                {
+                    hpP = 0;
+                    hp = 0;
+                    anim.SetBool("Death", true);
+                    AudioScript.clip = AudioSources.instance.Death;
+                    AudioScript.Play();
+                    PlayerDied();
+                }
+                maxVy = 0;
+
+
+                anim.SetBool("Climbing", false);
+                anim.SetBool("Mining", false);
+                anim.SetBool("Falling", false);
+                hpText.text = "HP: " + Math.Round(hpP).ToString();
+            }
         }
-    }
+        private void OnCollisionStay(Collision other)
+        {
+            if (other.gameObject.CompareTag("Enemy"))
+            {
+                if (!OreDection.instance.chestplate) hpP -= 0.05;
+                else hpP -= 0.025;
+                hp = (int)hpP;
+                hpText.text = "HP: " + hp.ToString();
+            }
+            if (other.gameObject.CompareTag("Boss"))
+            {
+                if (!OreDection.instance.chestplate) hpP -= 0.1;
+                else hpP -= 0.05;
+                hp = (int)hpP;
+                hpText.text = "HP: " + hp.ToString();
+            }
+        }
 }
