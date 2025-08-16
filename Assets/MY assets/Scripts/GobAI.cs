@@ -35,7 +35,8 @@ public class GobAI : MonoBehaviour
             {
                 if (gameObject.name == "IceGob(Clone)")
                 {
-                    if (gobSpawn.killedBoss && gobSpawn.killedGobs == 0) gobSpawn.killedBoss = false;
+                    //speed *= 0.3f;
+                    gobHP = 15;
                     transform.LookAt(Player.transform.position);
                     transform.Translate(Vector3.forward * Time.deltaTime * speed);
                     if (gobHP < 0)
@@ -43,7 +44,7 @@ public class GobAI : MonoBehaviour
                         gobSpawn.killedGobs++;
                         Destroy(gameObject);
                     }
-                    if (Movement.level != Level.ICECAVE || gobSpawn.killedBoss) Destroy(gameObject);
+                    //if (Movement.level != Level.ICECAVE /*|| gobSpawn.killedBoss*/) Destroy(gameObject);
                 }
                 else
                 {

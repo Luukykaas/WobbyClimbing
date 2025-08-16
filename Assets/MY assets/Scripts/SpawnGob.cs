@@ -38,7 +38,7 @@ public class SpawnGob : MonoBehaviour
             {
                 Instantiate(BossGob, Spawn, Quaternion.identity);
                 killedGobs = 0;
-            } 
+            }
         }
         else
         { 

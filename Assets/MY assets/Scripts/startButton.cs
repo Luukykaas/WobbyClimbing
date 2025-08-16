@@ -7,8 +7,6 @@ using UnityEngine.SceneManagement;
 public class startButton : MonoBehaviour
 {
     public float gameMode = 5;
-    public bool unkillebale = false;
-
     public void Quit()
     {
         Application.Quit();
@@ -27,15 +25,7 @@ public class startButton : MonoBehaviour
 
     public void GameMode(float mode)
     {
-        if(mode == 99)
-        {
-            unkillebale = true;
-            gameMode = 5;
-        }
-        else
-        {
-            gameMode = mode;
-        }
+        gameMode = mode;
         SceneManager.LoadScene("Game");
     }
 }
