@@ -33,7 +33,7 @@ public class BossGobAI : MonoBehaviour
                 if (gameObject.name == "BossIceGob(Clone)")
                 {
                     //speed *= 0.3f;
-                    BossgobHP = 300;
+                    //BossgobHP = 300;
                     transform.LookAt(Player.transform.position);
                     transform.Translate(Vector3.forward * Time.deltaTime * Bossspeed);
                 }
@@ -47,6 +47,7 @@ public class BossGobAI : MonoBehaviour
         if (BossgobHP < 0)
         {
             gobSpawn.killedBoss = true;
+            gobSpawn.killedGobs = 0;
             Movement.key = true;
             Destroy(gameObject);
         }

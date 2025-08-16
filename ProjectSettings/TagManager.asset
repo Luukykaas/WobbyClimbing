@@ -39,7 +39,6 @@ TagManager:
   - Bullet
   - IceCaveTrigger
   - PowerUp
-  - SwampTrigger
   layers:
   - Default
   - TransparentFX
