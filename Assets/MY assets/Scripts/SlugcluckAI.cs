@@ -9,10 +9,13 @@ public class SlugcluckAI : MonoBehaviour
     public GameObject Egg;
     public GameObject SpitPrefab;
     public GameObject MouthPos;
+    public GameObject NewPos;
     public MOvment Movement;
     public float speed = 3;
     public float spitSpeed = 1;
     public bool superSpit;
+    public bool delay = false;
+    public float HP = 200;
     public Vector3 eggSpawn;
 
     public void Update()
@@ -20,6 +23,11 @@ public class SlugcluckAI : MonoBehaviour
         if (superSpit) Spit();
         if (Movement.level == Level.BOSS1) gameObject.SetActive(true);
         else gameObject.SetActive(false);
+        if(HP < 0)
+        {
+            MOvment.instanceMov.level = Level.BOSS1CLIMB;
+            MOvment.instanceMov.gameObject.transform.position = NewPos.transform.position;
+        }
     }
     private void Start()
     {
@@ -54,4 +62,25 @@ public class SlugcluckAI : MonoBehaviour
         GameObject bullet = Instantiate(SpitPrefab, MouthPos.transform.position, MouthPos.transform.rotation);
         bullet.GetComponent<Rigidbody>().AddForce(MouthPos.transform.forward * spitSpeed * bullet.GetComponent<Rigidbody>().mass, ForceMode.Impulse);
     }
+
+    IEnumerator Damage()
+    {
+        yield return new WaitForSeconds(2);
+        delay = false;
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.CompareTag("Player") && Input.GetKey(KeyCode.Mouse0))
+        {
+            if(!delay)
+            {
+                HP -= 20;
+                delay = true;
+                StartCoroutine("Damage");
+                other.gameObject.GetComponent<Rigidbody>().AddForce(Vector3.back * 5, ForceMode.Impulse);
+            }
+        }
+    }
+
 }

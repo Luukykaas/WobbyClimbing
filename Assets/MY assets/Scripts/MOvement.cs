@@ -71,6 +71,7 @@ public class MOvment : MonoBehaviour
     Animator anim;
     AudioSource AudioScript;
     Dialoge dialoge;
+    startButton startbutton;
 
     private void Awake()
     {
@@ -133,6 +134,7 @@ public class MOvment : MonoBehaviour
         SetLevel(level);
         AudioScript = Audio.GetComponent<AudioSource>();
         dialoge = LevelManager.instance.gameObject.GetComponent<Dialoge>();
+        startbutton = LevelManager.instance.gameObject.GetComponent<startButton>();
     }
 
     void Update()
@@ -158,6 +160,15 @@ public class MOvment : MonoBehaviour
             {
                 anim.SetBool("Punch", false);
                 punching = false;
+            }
+        }
+
+        if (startbutton.unkillebale)
+        {
+            if (hpP != 100)
+            {
+                hpP = 100;
+                hpText.text = "HP: " + Math.Round(hpP).ToString();
             }
         }
 
@@ -392,7 +403,10 @@ public class MOvment : MonoBehaviour
         }
         if (other.gameObject.CompareTag("Kill"))
         {
-            PlayerDied();
+            if(!startbutton.unkillebale)
+            {
+                PlayerDied();
+            }
         }
         if (other.gameObject.CompareTag("Door"))
         {
@@ -490,22 +504,29 @@ public class MOvment : MonoBehaviour
                 Debug.Log("YOU HAVE ENTERED THE ICECAVE");
                 SetLevel(Level.ICECAVE);
             }
-            if (other.gameObject.CompareTag("Sludge"))
+        }
+        if (other.gameObject.CompareTag("SwampTrigger"))
+        {
+            if (Input.GetKeyDown(KeyCode.E) && key)
             {
-                speed = 4.0f;
+                Debug.Log("YOU HAVE ENTERD THE SWAMP");
+                gameObject.transform.position = Biome3.transform.position;
+                level = Level.BIOME3;
+                gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
+                anim.SetBool("Walking", false);
             }
-            if (other.gameObject.name == "Snowy Mercant")
+        }
+        if (other.gameObject.name == "Snowy Mercant")
+        {
+            if (Input.GetKeyDown(KeyCode.E))
             {
-                if (Input.GetKeyDown(KeyCode.E))
-                {
-                    dialoge.Say();
-                    UIManager.instance.Freeze(true);
-                }
+                dialoge.Say();
+                UIManager.instance.Freeze(true);
             }
-            if (other.gameObject.CompareTag("Wall"))
-            {
-                isTouchingWall = true;
-            }
+        }
+        if (other.gameObject.CompareTag("Sludge"))
+        {
+            speed = 4.0f;
         }
     }
 

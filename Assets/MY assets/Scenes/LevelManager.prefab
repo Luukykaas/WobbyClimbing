@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 1682855773140411542}
   - component: {fileID: 5417902552516061134}
   - component: {fileID: 5502830977441840599}
-  - component: {fileID: 3178307416810477339}
   m_Layer: 0
   m_Name: LevelManager
   m_TagString: Untagged
@@ -64,21 +63,9 @@ MonoBehaviour:
   Shoppanel: {fileID: 0}
   Sellpanel: {fileID: 0}
   ShopActive: 0
+  freez: 0
   Player: {fileID: 0}
   Cam: {fileID: 0}
   pLerp: 0.02
   shopPos: {fileID: 0}
   spawn: {fileID: 0}
---- !u!114 &3178307416810477339
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6771194299048975534}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 113bee04319bf754393e0bea8fcf4028, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameMode: 5
