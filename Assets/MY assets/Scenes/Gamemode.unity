@@ -830,7 +830,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3178307416810477339, guid: 35b24155d5b68d44a88ffdfa3bc49b5f, type: 3}
+      - m_Target: {fileID: -925376093113186003, guid: 35b24155d5b68d44a88ffdfa3bc49b5f, type: 3}
         m_TargetAssemblyTypeName: startButton, Assembly-CSharp
         m_MethodName: GameMode
         m_Mode: 4
@@ -1532,7 +1532,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3178307416810477339, guid: 35b24155d5b68d44a88ffdfa3bc49b5f, type: 3}
+      - m_Target: {fileID: -925376093113186003, guid: 35b24155d5b68d44a88ffdfa3bc49b5f, type: 3}
         m_TargetAssemblyTypeName: startButton, Assembly-CSharp
         m_MethodName: GameMode
         m_Mode: 4
@@ -1893,7 +1893,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3178307416810477339, guid: 35b24155d5b68d44a88ffdfa3bc49b5f, type: 3}
+      - m_Target: {fileID: -925376093113186003, guid: 35b24155d5b68d44a88ffdfa3bc49b5f, type: 3}
         m_TargetAssemblyTypeName: startButton, Assembly-CSharp
         m_MethodName: GameMode
         m_Mode: 4
@@ -2136,7 +2136,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3178307416810477339, guid: 35b24155d5b68d44a88ffdfa3bc49b5f, type: 3}
+      - m_Target: {fileID: -925376093113186003, guid: 35b24155d5b68d44a88ffdfa3bc49b5f, type: 3}
         m_TargetAssemblyTypeName: startButton, Assembly-CSharp
         m_MethodName: GameMode
         m_Mode: 4
@@ -2403,7 +2403,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3178307416810477339, guid: 35b24155d5b68d44a88ffdfa3bc49b5f, type: 3}
+      - m_Target: {fileID: -925376093113186003, guid: 35b24155d5b68d44a88ffdfa3bc49b5f, type: 3}
         m_TargetAssemblyTypeName: startButton, Assembly-CSharp
         m_MethodName: GameMode
         m_Mode: 4
