@@ -530,85 +530,68 @@ public class MOvment : MonoBehaviour
         }
     }
 
-        private void OnTriggerExit(Collider other)
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Wall"))
         {
-            if (other.gameObject.CompareTag("Wall"))
-            {
-                isTouchingWall = false;
-            }
-            if (other.gameObject.CompareTag("BottomGround"))
-            {
-                isOnBGround = false;
-            }
-            if (other.gameObject.CompareTag("Sludge"))
-            {
-                speed = 7.0f;
-            }
+            isTouchingWall = false;
         }
-
-        private void OnCollisionEnter(Collision collision)
+        if (other.gameObject.CompareTag("BottomGround"))
         {
-            if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("BottomGround"))
-            {
-                isOnGround = true;
-                isInAir = false;
-                /*
-                hp = (int)Math.Round(hpP);
-                hpP = hp;
-                if (hp < 0)
-                {
-                    hp = 0;
-                    anim.SetBool("Death", true);
-                }
-                */
+            isOnBGround = false;
+        }
+        if (other.gameObject.CompareTag("Sludge"))
+        {
+            speed = 7.0f;
+        }
+    }
 
-                if (maxVy < -10)
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("BottomGround"))
+        {
+            isOnGround = true;
+            isInAir = false;
+            /*
+            hp = (int)Math.Round(hpP);
+            hpP = hp;
+            if (hp < 0)
+            {
+                hp = 0;
+                anim.SetBool("Death", true);
+            }
+            */
+
+            if (maxVy < -10)
+            {
+                AudioScript.clip = AudioSources.instance.Oof;
+                AudioScript.Play();
+                if (!OreDection.instance.boots) hpP += maxVy;
+                else
                 {
-                    AudioScript.clip = AudioSources.instance.Oof;
-                    AudioScript.Play();
-                    if (!OreDection.instance.boots) hpP += maxVy;
-                    else
+                    if (maxVy * 2 < 70)
                     {
-                        if (maxVy * 2 < 70)
-                        {
-                            hpP += maxVy;
-                        }
-                        else hpP += maxVy * 2;
+                        hpP += maxVy;
                     }
+                    else hpP += maxVy * 2;
                 }
-                if (hpP <= 0)
-                {
-                    hpP = 0;
-                    hp = 0;
-                    anim.SetBool("Death", true);
-                    AudioScript.clip = AudioSources.instance.Death;
-                    AudioScript.Play();
-                    PlayerDied();
-                }
-                maxVy = 0;
+            }
+            if (hpP <= 0)
+            {
+                hpP = 0;
+                hp = 0;
+                anim.SetBool("Death", true);
+                AudioScript.clip = AudioSources.instance.Death;
+                AudioScript.Play();
+                PlayerDied();
+            }
+            maxVy = 0;
 
 
-                anim.SetBool("Climbing", false);
-                anim.SetBool("Mining", false);
-                anim.SetBool("Falling", false);
-                hpText.text = "HP: " + Math.Round(hpP).ToString();
+            anim.SetBool("Climbing", false);
+            anim.SetBool("Mining", false);
+            anim.SetBool("Falling", false);
+            hpText.text = "HP: " + Math.Round(hpP).ToString();
             }
-        }
-        private void OnCollisionStay(Collision other)
-        {
-            if (other.gameObject.CompareTag("Enemy"))
-            {
-                if (!OreDection.instance.chestplate) hpP -= 0.05;
-                else hpP -= 0.025;
-                hp = (int)hpP;
-                hpText.text = "HP: " + hp.ToString();
-            }
-            if (other.gameObject.CompareTag("Boss"))
-            {
-                if (!OreDection.instance.chestplate) hpP -= 0.1;
-                else hpP -= 0.05;
-                hp = (int)hpP;
-                hpText.text = "HP: " + hp.ToString();
-            }
-        }
+    }
 }
