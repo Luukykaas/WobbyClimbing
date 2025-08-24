@@ -82,5 +82,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 113bee04319bf754393e0bea8fcf4028, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameMode: 5
-  unkillebale: 0
+  gameMode: 99
+  unkillebale: 1
